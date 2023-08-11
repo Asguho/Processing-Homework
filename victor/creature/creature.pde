@@ -24,14 +24,14 @@ int xvel = 2;
 int yvel = 1;
 
 
-int diameter = 50;
-int eyeDiameter = 10;
-int mouthLength = 40;
-int speechBubbleWidth = 140;
-int speechBubbleHeight = 25;
-int speechBubbleXOffset = 70;
-int speechBubbleYOffset = 70;
-String speechText = "blablabla :))";
+final int diameter = 50;
+final int eyeDiameter = 10;
+final int mouthLength = 40;
+final int speechBubbleWidth = 140;
+final int speechBubbleHeight = 25;
+final int speechBubbleXOffset = 70;
+final int speechBubbleYOffset = 70;
+final String speechText = "blablabla :))";
 
 void draw() {
     background(255);
