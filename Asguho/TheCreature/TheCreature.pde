@@ -17,7 +17,6 @@ int characterY = 200;
 
 final int WHITE = 255;
 final int BLACK = 0;
-final int CANVA_SIZE = 512;
 
 final int CHARACTER_SIZE = 50;
 final int CHARACTER_WIDTH = 40;
@@ -38,11 +37,9 @@ final String speechText = "hello world";
 
 
 void setup() {
-    size(CANVA_SIZE, CANVA_SIZE);
+    size(512, 512);
     background(WHITE);
 }
-
-
 
 void draw() {
     background(WHITE);
@@ -50,7 +47,7 @@ void draw() {
     rect(characterX + speechBubbleOffsetX, characterY + speechBubbleOffsetY, speechBubbleWidth, speechBubbleHeight, speechBubbleRadius, speechBubbleRadius, speechBubbleRadius, speechBubbleSharpRadius);
     drawCharacter();
     fill(BLACK);
-    text(speechText, characterX+speechBubbleTextOffsetX, characterY-speechBubbleTextOffsetY);
+    text(speechText, characterX+speechBubbleTextOffsetX, characterY+speechBubbleTextOffsetY);
 }
 
 void drawCharacter() {
