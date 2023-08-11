@@ -12,37 +12,60 @@
 // Frivilligt:
 //  Prøv at få “væsnet” til f.eks at “bounce” eller bevæge sig længere væk så der simuleres en rummelig dimension
 
-void setup() {
-    size(400, 400);
-    background(255);
-}
-
 int characterX = 200;
 int characterY = 200;
 
-void draw() {
-    background(255);
-    fill(255);
-    rect(characterX+20,characterY-50, 65, 25, 10,10,10,0);
-    drawCharacter();
-    fill(0);
-    text("hello world", characterX+25, characterY-30);
+final int WHITE = 255;
+final int BLACK = 0;
+final int CANVA_SIZE = 512;
 
+final int CHARACTER_SIZE = 50;
+final int CHARACTER_WIDTH = 40;
+final int CHARACTER_HEIGHT = 100;
+final int CHARACTER_SPEED = 10;
+final int CHARACTER_HEAD_SIZE = 50;
+final int CHARACTER_BODY_OFFSET = 20;
+
+final int speechBubbleWidth = 65;
+final int speechBubbleHeight = 25;
+final int speechBubbleRadius = 10;
+final int speechBubbleSharpRadius = 0;
+final int speechBubbleOffsetX = 20;
+final int speechBubbleOffsetY = -50;
+final int speechBubbleTextOffsetX = 25;
+final int speechBubbleTextOffsetY = -30;
+final String speechText = "hello world";
+
+
+void setup() {
+    size(CANVA_SIZE, CANVA_SIZE);
+    background(WHITE);
+}
+
+
+
+void draw() {
+    background(WHITE);
+    fill(WHITE);
+    rect(characterX + speechBubbleOffsetX, characterY + speechBubbleOffsetY, speechBubbleWidth, speechBubbleHeight, speechBubbleRadius, speechBubbleRadius, speechBubbleRadius, speechBubbleSharpRadius);
+    drawCharacter();
+    fill(BLACK);
+    text(speechText, characterX+speechBubbleTextOffsetX, characterY-speechBubbleTextOffsetY);
 }
 
 void drawCharacter() {
-    rect(characterX-20, characterY, 40,100);
-    circle(characterX, characterY, 50);
+    rect(characterX-CHARACTER_BODY_OFFSET, characterY, CHARACTER_WIDTH,CHARACTER_HEIGHT);
+    circle(characterX, characterY, CHARACTER_HEAD_SIZE);
 }
 
 void keyTyped() {
     if (key == 'w') {
-        characterY -= 10;
+        characterY -= CHARACTER_SPEED;
     } else if (key == 's') {
-        characterY += 10;
+        characterY += CHARACTER_SPEED;
     } else if (key == 'a') {
-        characterX -= 10;
+        characterX -= CHARACTER_SPEED;
     } else if (key == 'd') {
-        characterX += 10;
+        characterX += CHARACTER_SPEED;
     }
 }
