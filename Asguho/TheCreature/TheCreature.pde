@@ -11,12 +11,13 @@
 //
 // Frivilligt:
 //  Prøv at få “væsnet” til f.eks at “bounce” eller bevæge sig længere væk så der simuleres en rummelig dimension
-
+Class Character 
 int characterX = 200;
 int characterY = 200;
 
 final int WHITE = 255;
 final int BLACK = 0;
+final int CANVAS_SIZE = 512;
 
 final int CHARACTER_SIZE = 50;
 final int CHARACTER_WIDTH = 40;
@@ -43,7 +44,7 @@ void setup() {
 void draw() {
     background(WHITE);
     drawCharacter();
-    drawSpeechBubble()
+    drawSpeechBubble();
 }
 
 void drawCharacter() {
@@ -68,5 +69,17 @@ void keyTyped() {
         characterX -= CHARACTER_SPEED;
     } else if (key == 'd') {
         characterX += CHARACTER_SPEED;
+    }
+
+    if(characterX > CANVAS_SIZE) {
+        characterX = 0;
+    } else if(characterX < 0) {
+        characterX = CANVAS_SIZE;
+    }
+
+    if(characterY > CANVAS_SIZE) {
+        characterY = 0;
+    } else if(characterY < 0) {
+        characterY = CANVAS_SIZE;
     }
 }
