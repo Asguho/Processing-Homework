@@ -25,16 +25,15 @@ final int CHARACTER_SPEED = 10;
 final int CHARACTER_HEAD_SIZE = 50;
 final int CHARACTER_BODY_OFFSET = 20;
 
-final int speechBubbleWidth = 65;
-final int speechBubbleHeight = 25;
-final int speechBubbleRadius = 10;
-final int speechBubbleSharpRadius = 0;
-final int speechBubbleOffsetX = 20;
-final int speechBubbleOffsetY = -50;
-final int speechBubbleTextOffsetX = 25;
-final int speechBubbleTextOffsetY = -30;
-final String speechText = "hello world";
-
+final int SPEECH_BUBBLE_WIDTH = 65;
+final int SPEECH_BUBBLE_HEIGHT = 25;
+final int SPEECH_BUBBLE_RADIUS = 10;
+final int SPEECH_BUBBLE_SHARP_RADIUS = 0;
+final int SPEECH_BUBBLE_OFFSET_X = 20;
+final int SPEECH_BUBBLE_OFFSET_Y = -50;
+final int SPEECH_BUBBLE_TEXT_OFFSET_X = 25;
+final int SPEECH_BUBBLE_TEXT_OFFSET_Y = -30;
+final String SPEECH_TEXT = "hello world";
 
 void setup() {
     size(512, 512);
@@ -43,16 +42,21 @@ void setup() {
 
 void draw() {
     background(WHITE);
-    fill(WHITE);
-    rect(characterX + speechBubbleOffsetX, characterY + speechBubbleOffsetY, speechBubbleWidth, speechBubbleHeight, speechBubbleRadius, speechBubbleRadius, speechBubbleRadius, speechBubbleSharpRadius);
     drawCharacter();
-    fill(BLACK);
-    text(speechText, characterX+speechBubbleTextOffsetX, characterY+speechBubbleTextOffsetY);
+    drawSpeechBubble()
 }
 
 void drawCharacter() {
-    rect(characterX-CHARACTER_BODY_OFFSET, characterY, CHARACTER_WIDTH,CHARACTER_HEIGHT);
+    fill(WHITE);
+    rect(characterX - CHARACTER_BODY_OFFSET, characterY, CHARACTER_WIDTH, CHARACTER_HEIGHT);
     circle(characterX, characterY, CHARACTER_HEAD_SIZE);
+}
+
+void drawSpeechBubble() {
+    fill(WHITE);
+    rect(characterX + SPEECH_BUBBLE_OFFSET_X, characterY + SPEECH_BUBBLE_OFFSET_Y, SPEECH_BUBBLE_WIDTH, SPEECH_BUBBLE_HEIGHT, SPEECH_BUBBLE_RADIUS, SPEECH_BUBBLE_RADIUS, SPEECH_BUBBLE_RADIUS, SPEECH_BUBBLE_SHARP_RADIUS);
+    fill(BLACK);
+    text(SPEECH_TEXT, characterX + SPEECH_BUBBLE_TEXT_OFFSET_X, characterY + SPEECH_BUBBLE_TEXT_OFFSET_Y);
 }
 
 void keyTyped() {
