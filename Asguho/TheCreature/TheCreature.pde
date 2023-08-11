@@ -12,45 +12,74 @@
 // Frivilligt:
 //  Prøv at få “væsnet” til f.eks at “bounce” eller bevæge sig længere væk så der simuleres en rummelig dimension
 
-void setup() {
-    size(400, 400);
-    background(255);
-}
-
 int characterX = 200;
 int characterY = 200;
-final int characterWidth = 40;
-final int characterHeight = 100;
-final int characterHeadSize = 50;
-final int speechBubbleWidth = 65;
-final int speechBubbleHeight = 25;
-final int speechBubbleRadius = 10;
-final int speechBubbleOffsetX = 20;
-final int speechBubbleOffsetY = -50;
-final String speechText = "hello world";
 
-void draw() {
-    background(255);
-    fill(255);
-    rect(characterX + speechBubbleOffsetX, characterY + speechBubbleOffsetY, speechBubbleWidth, speechBubbleHeight, speechBubbleRadius, speechBubbleRadius, speechBubbleRadius, 0);
-    drawCharacter();
-    fill(0);
-    text(speechText, characterX + speechBubbleOffsetX + 5, characterY + speechBubbleOffsetY - 20);
-}
+final int WHITE = 255;
+final int BLACK = 0;
+final int CANVAS_SIZE = 512;
+
+final int CHARACTER_SIZE = 50;
+final int CHARACTER_WIDTH = 40;
+final int CHARACTER_HEIGHT = 100;
+final int CHARACTER_SPEED = 10;
+final int CHARACTER_HEAD_SIZE = 50;
+final int CHARACTER_BODY_OFFSET = 20;
+
+final int SPEECH_BUBBLE_WIDTH = 65;
+final int SPEECH_BUBBLE_HEIGHT = 25;
+final int SPEECH_BUBBLE_RADIUS = 10;
+final int SPEECH_BUBBLE_SHARP_RADIUS = 0;
+final int SPEECH_BUBBLE_OFFSET_X = 20;
+final int SPEECH_BUBBLE_OFFSET_Y = -50;
+final int SPEECH_BUBBLE_TEXT_OFFSET_X = 25;
+final int SPEECH_BUBBLE_TEXT_OFFSET_Y = -30;
+final String SPEECH_TEXT = "hello world";
 
 void drawCharacter() {
-    rect(characterX - characterWidth / 2, characterY, characterWidth, characterHeight);
-    circle(characterX, characterY, characterHeadSize);
+    fill(WHITE);
+    rect(characterX - CHARACTER_BODY_OFFSET, characterY, CHARACTER_WIDTH, CHARACTER_HEIGHT);
+    circle(characterX, characterY, CHARACTER_HEAD_SIZE);
+}
+
+void drawSpeechBubble() {
+    fill(WHITE);
+    rect(characterX + SPEECH_BUBBLE_OFFSET_X, characterY + SPEECH_BUBBLE_OFFSET_Y, SPEECH_BUBBLE_WIDTH, SPEECH_BUBBLE_HEIGHT, SPEECH_BUBBLE_RADIUS, SPEECH_BUBBLE_RADIUS, SPEECH_BUBBLE_RADIUS, SPEECH_BUBBLE_SHARP_RADIUS);
+    fill(BLACK);
+    text(SPEECH_TEXT, characterX + SPEECH_BUBBLE_TEXT_OFFSET_X, characterY + SPEECH_BUBBLE_TEXT_OFFSET_Y);
+}
+
+void setup() {
+    size(512, 512);
+    background(WHITE);
+}
+
+void draw() {
+    background(WHITE);
+    drawCharacter();
+    drawSpeechBubble();
 }
 
 void keyTyped() {
     if (key == 'w') {
-        characterY -= 10;
+        characterY -= CHARACTER_SPEED;
     } else if (key == 's') {
-        characterY += 10;
+        characterY += CHARACTER_SPEED;
     } else if (key == 'a') {
-        characterX -= 10;
+        characterX -= CHARACTER_SPEED;
     } else if (key == 'd') {
-        characterX += 10;
+        characterX += CHARACTER_SPEED;
+    }
+
+    if(characterX > CANVAS_SIZE) {
+        characterX = 0;
+    } else if(characterX < 0) {
+        characterX = CANVAS_SIZE;
+    }
+
+    if(characterY > CANVAS_SIZE) {
+        characterY = 0;
+    } else if(characterY < 0) {
+        characterY = CANVAS_SIZE;
     }
 }
