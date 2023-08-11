@@ -19,20 +19,28 @@ void setup() {
 
 int characterX = 200;
 int characterY = 200;
+final int characterWidth = 40;
+final int characterHeight = 100;
+final int characterHeadSize = 50;
+final int speechBubbleWidth = 65;
+final int speechBubbleHeight = 25;
+final int speechBubbleRadius = 10;
+final int speechBubbleOffsetX = 20;
+final int speechBubbleOffsetY = -50;
+final String speechText = "hello world";
 
 void draw() {
     background(255);
     fill(255);
-    rect(characterX+20,characterY-50, 65, 25, 10,10,10,0);
+    rect(characterX + speechBubbleOffsetX, characterY + speechBubbleOffsetY, speechBubbleWidth, speechBubbleHeight, speechBubbleRadius, speechBubbleRadius, speechBubbleRadius, 0);
     drawCharacter();
     fill(0);
-    text("hello world", characterX+25, characterY-30);
-
+    text(speechText, characterX + speechBubbleOffsetX + 5, characterY + speechBubbleOffsetY - 20);
 }
 
 void drawCharacter() {
-    rect(characterX-20, characterY, 40,100);
-    circle(characterX, characterY, 50);
+    rect(characterX - characterWidth / 2, characterY, characterWidth, characterHeight);
+    circle(characterX, characterY, characterHeadSize);
 }
 
 void keyTyped() {
