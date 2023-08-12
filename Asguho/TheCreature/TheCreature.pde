@@ -17,7 +17,6 @@ int characterY = 200;
 
 final int WHITE = 255;
 final int BLACK = 0;
-final int CANVAS_SIZE = 512;
 
 final int CHARACTER_SIZE = 50;
 final int CHARACTER_WIDTH = 40;
@@ -71,15 +70,15 @@ void keyTyped() {
         characterX += CHARACTER_SPEED;
     }
 
-    if(characterX > CANVAS_SIZE) {
+    if(characterX > width) {
         characterX = 0;
     } else if(characterX < 0) {
-        characterX = CANVAS_SIZE;
+        characterX = width;
     }
 
-    if(characterY > CANVAS_SIZE) {
+    if(characterY > height) {
         characterY = 0;
     } else if(characterY < 0) {
-        characterY = CANVAS_SIZE;
+        characterY = height;
     }
 }
