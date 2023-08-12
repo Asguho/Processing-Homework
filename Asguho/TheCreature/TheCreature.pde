@@ -82,3 +82,4 @@ void keyTyped() {
         characterY = height;
     }
 }
+
