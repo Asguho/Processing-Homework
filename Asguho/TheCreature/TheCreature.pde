@@ -17,7 +17,6 @@ int characterY = 200;
 
 final int WHITE = 255;
 final int BLACK = 0;
-final int CANVAS_SIZE = 512;
 
 final int CHARACTER_SIZE = 50;
 final int CHARACTER_WIDTH = 40;
@@ -36,6 +35,16 @@ final int SPEECH_BUBBLE_TEXT_OFFSET_X = 25;
 final int SPEECH_BUBBLE_TEXT_OFFSET_Y = -30;
 final String SPEECH_TEXT = "hello world";
 
+void setup() {
+    size(512, 512);
+}
+
+void draw() {
+    background(WHITE);
+    drawCharacter();
+    drawSpeechBubble();
+}
+
 void drawCharacter() {
     fill(WHITE);
     rect(characterX - CHARACTER_BODY_OFFSET, characterY, CHARACTER_WIDTH, CHARACTER_HEIGHT);
@@ -49,17 +58,6 @@ void drawSpeechBubble() {
     text(SPEECH_TEXT, characterX + SPEECH_BUBBLE_TEXT_OFFSET_X, characterY + SPEECH_BUBBLE_TEXT_OFFSET_Y);
 }
 
-void setup() {
-    size(512, 512);
-    background(WHITE);
-}
-
-void draw() {
-    background(WHITE);
-    drawCharacter();
-    drawSpeechBubble();
-}
-
 void keyTyped() {
     if (key == 'w') {
         characterY -= CHARACTER_SPEED;
@@ -71,15 +69,15 @@ void keyTyped() {
         characterX += CHARACTER_SPEED;
     }
 
-    if(characterX > CANVAS_SIZE) {
+    if(characterX > width) {
         characterX = 0;
     } else if(characterX < 0) {
-        characterX = CANVAS_SIZE;
+        characterX = width;
     }
 
-    if(characterY > CANVAS_SIZE) {
+    if(characterY > height) {
         characterY = 0;
     } else if(characterY < 0) {
-        characterY = CANVAS_SIZE;
+        characterY = height;
     }
 }
