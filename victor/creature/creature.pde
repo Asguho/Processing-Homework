@@ -1,13 +1,3 @@
-
-
-
-
-
-// TODO: få klasse til at virke!!!
-
-
-
-
 //Opgave beskrivelse
 // Afleveringen:
 // 
@@ -23,80 +13,88 @@
 //  Prøv at få “væsnet” til f.eks at “bounce” eller bevæge sig længere væk så der simuleres en rummelig dimension
 
 class Creature {
-    float classx;
-    float classy;
-    float classxvel;
-    float classyvel;
-
-    int colorOffset = 0;
-
-    final int diameter = 50;
-    final int eyeDiameter = 10;
-    final int mouthLength = 40;
-    final int speechBubbleWidth = 140;
-    final int speechBubbleHeight = 25;
-    final int speechBubbleXOffset = 70;
-    final int speechBubbleYOffset = 70;
-    final String speechText = "blablabla :))";
-
-    Creature(float x, float y, float xvel, float yvel) {
-        classx = x;
-        classy = y;
-        classxvel = xvel;
-        classyvel = yvel;
+  float x;
+  float y;
+  float xvel;
+  float yvel;
+    
+  final int diameter = 50;
+  final int eyeDiameter = 10;
+  final int mouthLength = 40;
+  final int speechBubbleWidth = 140;
+  final int speechBubbleHeight = 25;
+  final int speechBubbleXOffset = 70;
+  final int speechBubbleYOffset = 70;
+  final String speechText = "blablabla :))";
+   
+  Creature(float x, float y, float xvel, float yvel) {
+    this.x = x;
+    this.y = y;
+    this.xvel = xvel;
+    this.yvel = yvel;
+  }
+    
+  void draw() {
+    circle(x, y, diameter);
+    // draw the eyes
+    circle(x - 10, y - 10, eyeDiameter);
+    circle(x + 10, y - 10, eyeDiameter);
+    
+    // draw the mouth
+    line(x - mouthLength / 2, y + diameter / 4, x + mouthLength / 2, y + diameter / 4);
+    
+    // draw the speech bubble
+    fill(255, 150); // set alpha value to 150 (translucent)
+    rect(x - speechBubbleXOffset, y - speechBubbleYOffset, speechBubbleWidth, speechBubbleHeight, 10, 10, 10, 10);
+    fill(0);
+    text(speechText, x - speechBubbleXOffset + 10, y - speechBubbleYOffset + 18);
+    fill(255);
+  }
+    
+  void move() {
+    x += xvel;
+    y += yvel;
+    
+    //if on wall, bounce (reverse velocity)
+    if (x < diameter / 2 || x > width - diameter / 2) {
+        xvel *= -1;
+    }
+    if (y < diameter / 2 || y > height - diameter / 2) {
+        yvel *= -1;
     }
 
-    void draw() {
-        background(255);
-        circle(classx, classy, diameter);
-        // draw the eyes
-        circle(classx-10, classy-10, eyeDiameter);
-        circle(classx+10, classy-10, eyeDiameter);
-
-        // draw the mouth
-        line(classx-mouthLength/2, classy+diameter/4, classx+mouthLength/2, classy+diameter/4);
-
-        // draw the speech bubble
-        fill(255);
-        rect(classx-speechBubbleXOffset, classy-speechBubbleYOffset, speechBubbleWidth, speechBubbleHeight, 10, 10, 10, 10);
-        fill(0);
-        text(speechText, classx-speechBubbleXOffset+10, classy-speechBubbleYOffset+18);
-        fill(255);
+    // if inside wall, move away from wall
+    if (x < diameter / 2) {
+        x += 5;
     }
-
-    void move() {
-        classx += classxvel;
-        classy += classyvel;
-
-        //check move validity
-        //if on wall, bounce
-
-        if (classx < diameter/2 || classx > width-diameter/2) {
-                classxvel *= -1;
-        }
-        if (classy < diameter/2 || classy > height-diameter/2) {
-                classyvel *= -1;
-        }
+    if (x > width - diameter / 2) {
+        x -= 5;
     }
+    if (y < diameter / 2) {
+        y += 5;
+    }
+    if (y > height - diameter / 2) {
+        y -= 5;
+    }
+  }
 }
 
 
-Creature[] creature = new Creature[2];
+Creature[] creatures = new Creature[50];
 
 void setup() {
-    size(400, 400);
-    background(255);
-    creature[0] = new Creature(width/2, height/2, 1, 1);
-
-    //make another creature
-    creature[1] = new Creature(width/2, height/2, 2, 1);
+  size(600, 600);
+  fullScreen();
+  for (int i = 0; i < creatures.length; i++) {
+    creatures[i] = new Creature(random(width), random(height), random(-5, 5), random(-5, 5));
+  }
 }
 
 void draw() {
-    creature[0].draw();
-    creature[0].move();
-
-    creature[1].draw();
-    creature[1].move();
+  background(50);
+    
+  for (int i = 0; i < creatures.length; i++) {
+    creatures[i].draw();
+    creatures[i].move();
+  }
 }
-
