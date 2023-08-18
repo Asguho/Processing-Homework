@@ -35,6 +35,16 @@ final int SPEECH_BUBBLE_TEXT_OFFSET_X = 25;
 final int SPEECH_BUBBLE_TEXT_OFFSET_Y = -30;
 final String SPEECH_TEXT = "hello world";
 
+void setup() {
+    size(512, 512);
+}
+
+void draw() {
+    background(WHITE);
+    drawCharacter();
+    drawSpeechBubble();
+}
+
 void drawCharacter() {
     fill(WHITE);
     rect(characterX - CHARACTER_BODY_OFFSET, characterY, CHARACTER_WIDTH, CHARACTER_HEIGHT);
@@ -46,17 +56,6 @@ void drawSpeechBubble() {
     rect(characterX + SPEECH_BUBBLE_OFFSET_X, characterY + SPEECH_BUBBLE_OFFSET_Y, SPEECH_BUBBLE_WIDTH, SPEECH_BUBBLE_HEIGHT, SPEECH_BUBBLE_RADIUS, SPEECH_BUBBLE_RADIUS, SPEECH_BUBBLE_RADIUS, SPEECH_BUBBLE_SHARP_RADIUS);
     fill(BLACK);
     text(SPEECH_TEXT, characterX + SPEECH_BUBBLE_TEXT_OFFSET_X, characterY + SPEECH_BUBBLE_TEXT_OFFSET_Y);
-}
-
-void setup() {
-    size(512, 512);
-    background(WHITE);
-}
-
-void draw() {
-    background(WHITE);
-    drawCharacter();
-    drawSpeechBubble();
 }
 
 void keyTyped() {
