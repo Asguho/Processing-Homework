@@ -68,16 +68,16 @@ void keyTyped() {
     } else if (key == 'd') {
         characterX += CHARACTER_SPEED;
     }
-
-    if(characterX > width) {
+    
+    if (characterX > width) {
         characterX = 0;
-    } else if(characterX < 0) {
+    } else if (characterX < 0) {
         characterX = width;
     }
-
-    if(characterY > height) {
+    
+    if (characterY > height) {
         characterY = 0;
-    } else if(characterY < 0) {
+    } else if (characterY < 0) {
         characterY = height;
     }
 }
