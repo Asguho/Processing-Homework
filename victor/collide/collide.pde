@@ -1,7 +1,7 @@
 ArrayList<Particle> particles = new ArrayList<Particle>();
 
 void setup() {
-  size(800, 800);
+  size(800, 800, P2D);
   background(0);
   smooth();
   for (int i = 0; i < 10; i++) {
