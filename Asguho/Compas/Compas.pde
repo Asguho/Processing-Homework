@@ -11,24 +11,23 @@ void draw() {
     switch(round((new PVector(mouseX - width / 2, mouseY - height / 2).heading() / PI) * 2)) {
         case -2 :
         case 2 :
-            printInMiddel("W");
+            printInCenter('W');
         break;	
         case 1 :
-            printInMiddel("S");
+            printInCenter('S');
         break;
         case 0 :
-            printInMiddel("E");
+            printInCenter('E');
         break;
         case -1 :
-            printInMiddel("N");
+            printInCenter('N');
         break;
     }
 }
 
-void printInMiddel(String s) {
+void printInCenter(char s) {
     textSize(128);
     fill(0);
-    // text(s,width / 2-textWidth(s)/2,height / 2+(textAscent()+textDescent())/2);
     textAlign(CENTER, CENTER);
     text(s, width / 2, height / 2);
 }
