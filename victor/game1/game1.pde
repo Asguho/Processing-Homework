@@ -3,6 +3,8 @@ Ball ball = new Ball();
 Target target = new Target();
 Score score = new Score();
 int points = 0;
+int actualPoints = 0;
+int lastHit = 0;
 
 void setup() {
     size(400, 400);
@@ -86,6 +88,15 @@ class Target {
             pos.x = random(width);
             pos.y = random(height);
             points++;
+
+            int timeSinceLastHit = millis() - lastHit;
+            int pointsToAdd = 10 - timeSinceLastHit/1000;
+            if (pointsToAdd < 0) {
+                pointsToAdd = 0;
+            }
+            actualPoints += pointsToAdd;
+            lastHit = millis();
+
         }
     }
 }
@@ -95,7 +106,7 @@ class Score {
         textSize(32);
         fill(0);
         noStroke();
-        text(points, 10, 30);
+        text("ramt: " + points+" point: "+actualPoints, 10, 30);
     }
 }
 

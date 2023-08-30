@@ -1,26 +1,28 @@
 ArrayList<Particle> particles = new ArrayList<Particle>();
 ArrayList<Stick> sticks = new ArrayList<Stick>();
 float prevTime;
-int supsteps = 6;
+int supsteps = 2;
+float ease = 0;
 
 void setup() {
-    size(500, 700, P2D);
+    size(900, 700, P2D);
+    fullScreen(P2D);
 
     for (int i = 0; i * 10 + 100 < width - 100; i++) {
-        for (int j = 0; j < 40; j++) {
+        for (int j = 0; j < 60; j++) {
             // first row fixed
             particles.add(new Particle(100 + i * 10, 100 + j * 10, 10000, j == 0));
         }
     }
 
     // add sticks in vertical direction
-    for (int i = 0; i < particles.size() - 40; i++) {
-        sticks.add(new Stick(particles.get(i), particles.get(i + 40), 10));
+    for (int i = 0; i < particles.size() - 60; i++) {
+        sticks.add(new Stick(particles.get(i), particles.get(i + 60), 10));
     }
 
     // add sticks in horizontal direction
     for (int i = 0; i < particles.size() - 1; i++) {
-        if ((i + 1) % 40 != 0) {
+        if ((i + 1) % 60 != 0) {
             sticks.add(new Stick(particles.get(i), particles.get(i + 1), 10));
         }
     }
@@ -35,12 +37,16 @@ void draw() {
     }
     
     for (int i = 0; i < particles.size(); i++) {
-        ellipse(particles.get(i).x, particles.get(i).y, 1, 1);
+        //ellipse(particles.get(i).x, particles.get(i).y, 1, 1);
     }
     
     stroke(255);
     for (int i = 0; i < sticks.size(); i++) {
         line(sticks.get(i).p1.x, sticks.get(i).p1.y, sticks.get(i).p2.x, sticks.get(i).p2.y);
+    }
+
+    if(ease < 1) {
+        ease += 0.01;
     }
 }
 
@@ -54,7 +60,7 @@ void updateParticles(float deltaTime) {
             continue;
         }
 
-        PVector force = new PVector(0, 0.5);
+        PVector force = new PVector(0, 0.5 * ease);
         
         PVector acceleration = new PVector(force.x / particle.mass, force.y / particle.mass);
         
@@ -171,5 +177,20 @@ void mouseDragged() {
                 sticks.remove(i);
             }
         }
+    }
+}
+
+
+//if r is pressed reset the particles to their original positions
+void keyPressed() {
+    if (key == 'r') {
+        //remove all the sticks
+        sticks.clear();
+        //remove all the particles
+        particles.clear();
+
+
+        //rerun the setup function to create the particles and sticks again
+        setup(); 
     }
 }
