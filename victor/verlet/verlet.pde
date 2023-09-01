@@ -1,7 +1,7 @@
 ArrayList<Particle> particles = new ArrayList<Particle>();
 ArrayList<Stick> sticks = new ArrayList<Stick>();
 float prevTime;
-int supsteps = 2;
+int supsteps = 10;
 float ease = 0;
 
 void setup() {
@@ -60,7 +60,7 @@ void updateParticles(float deltaTime) {
             continue;
         }
 
-        PVector force = new PVector(0, 0.5 * ease);
+        PVector force = new PVector(0, 0.2 * ease);
         
         PVector acceleration = new PVector(force.x / particle.mass, force.y / particle.mass);
         
@@ -183,7 +183,7 @@ void mouseDragged() {
 
 //if r is pressed reset the particles to their original positions
 void keyPressed() {
-    if (key == 'r') {
+    if (key == 'r' || key == 'R') {
         //remove all the sticks
         sticks.clear();
         //remove all the particles
