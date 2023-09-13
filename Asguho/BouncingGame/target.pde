@@ -4,7 +4,7 @@ class Target {
 
     Target() {
         location = new PVector(random(width), random(height));
-        radius = 50;
+        radius = 20;
     }
 
     void display() {
