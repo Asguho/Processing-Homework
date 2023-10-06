@@ -36,6 +36,10 @@ class Ui{
         vindretning.draw();
 
         vindstyrke.draw();
+
+        skib = polarToVektor(vink.getValue(), hast.getValue());
+        vind = polarToVektor(vindretning.getValue(), vindstyrke.getValue());
+
     }
 }
 
@@ -118,7 +122,9 @@ class TextInputFloat {
             if (key == BACKSPACE) {
                 value = 0;
             }
-            //if the key is a number
+            if (key == '-') {
+                value = -value;
+            }
             if (key >= '0' && key <= '9') {
                 //add the number to the value
                 value = value * 10 + (key - '0');
