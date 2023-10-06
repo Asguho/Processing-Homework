@@ -11,11 +11,13 @@ int fib(int t) {
 }
 
 void setup(){
-    size(500, 500);
+    colorMode(HSB, 360, 100, 100);
+    size(800, 800);
     int size = 0;
     translate(width/2, height/2);
     for (int i = 2; i < 15; i++) {
         size = fib(i)*10;
+        fill(size%360, 100, 100);
         println("size: "+size, i, fib(i-1));
         rect(0, 0, size, size);
         rotate(HALF_PI);
