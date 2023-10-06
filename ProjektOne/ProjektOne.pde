@@ -2,8 +2,7 @@ Ship ship;
 Ui ui; 
 
 void setup() {
-    //fullScreen();
-    size(900, 500);
+    size(900, 700);
     ship = new Ship(height/2,width/2);
     ui = new Ui();
 }

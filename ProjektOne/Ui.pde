@@ -22,7 +22,7 @@ class Ui{
     }
 
     void display() {
-        image(img, width*1/3, 0);
+        image(img, width-height*img.width/img.height, 0, height*img.width/img.height, height);
         textSize(30);
         text("Skibets egenskaber", 20, 30);
 
