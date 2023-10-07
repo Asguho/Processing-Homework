@@ -1,5 +1,6 @@
 class Ship {
     final int shipSize = 25;
+
     PVector pos;
     PVector vel = new PVector(1, 1.2);
     PVector wind = new PVector(0,0);

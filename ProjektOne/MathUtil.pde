@@ -1,6 +1,4 @@
-
-PVector polarToVektor(float angle, float length) {
-    
+PVector polarToVektor(float angle, float length) {  
     float x = length * cos(radians(-angle));
     float y = length * sin(radians(-angle));
     return new PVector(x, y);

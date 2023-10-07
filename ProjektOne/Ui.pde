@@ -1,12 +1,13 @@
-TextInputFloat vink = new TextInputFloat("Skib Vinkel", 20, 60, 0);
-TextInputFloat hast = new TextInputFloat("Skib Hast", 20, 90, 0);
-TextInputFloat vindretning = new TextInputFloat("Vindretning", 20, 170, 0);
-TextInputFloat vindstyrke = new TextInputFloat("Vindstyrke", 20, 200, 0);
-
-PVector skib = new PVector(0,0);
-PVector vind = new PVector(0,0);
-
 class Ui{
+    final float metersPrPixel = 200.0/108.0;
+    TextInputFloat vink = new TextInputFloat("Skib Vinkel", 20, 60, 0);
+    TextInputFloat hast = new TextInputFloat("Skib Hast", 20, 90, 0);
+    TextInputFloat vindretning = new TextInputFloat("Vindretning", 20, 170, 0);
+    TextInputFloat vindstyrke = new TextInputFloat("Vindstyrke", 20, 200, 0);
+
+    PVector skib = new PVector(0,0);
+    PVector vind = new PVector(0,0);
+    
     PImage img;
     Ui(){
         img = loadImage("assets/background.png");
@@ -37,8 +38,8 @@ class Ui{
 
         vindstyrke.draw();
 
-        skib = polarToVektor(vink.getValue(), hast.getValue());
-        vind = polarToVektor(vindretning.getValue(), vindstyrke.getValue());
+        skib = polarToVektor(vink.getValue()*metersPrPixel, hast.getValue());
+        vind = polarToVektor(vindretning.getValue()*metersPrPixel, vindstyrke.getValue());
 
     }
 }
