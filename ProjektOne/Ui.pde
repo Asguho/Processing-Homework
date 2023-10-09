@@ -93,7 +93,7 @@ class TextInputFloat {
         strokeWeight(5);
         noFill();
 
-        if (isHovering(x -20, y - 20, int(x + 100 + textWidth(str(value))), y + 20)) {
+        if (isHovering(x, y-15, int(x + 150 + textWidth(str(value))), y + 15)) {
             //make a red box around the text and the label
             stroke(255,0,0);
             rect(x -20, y - 20, int(200 + textWidth(str(value))), 30);
