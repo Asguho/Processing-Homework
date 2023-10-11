@@ -47,8 +47,12 @@ class InputField {
             }
             mousePressedLastFrame = mousePressed;
         }
+
+        if (mousePressed && (mousePressedLastFrame != mousePressed) && isHovering(x-margin, y-margin, x + getWidth(value)+margin, y+margin/2) == false) {
+            selected = false;
+        }
     }
-    }
+}
 
 
 class BoolInputFloat extends InputField{
