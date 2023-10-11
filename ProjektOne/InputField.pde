@@ -46,14 +46,13 @@ class InputField {
                 pressed = !pressed;
             }
             mousePressedLastFrame = mousePressed;
-        }
-
-        if (mousePressed && (mousePressedLastFrame != mousePressed) && isHovering(x-margin, y-margin, x + getWidth(value)+margin, y+margin/2) == false) {
-            pressed = false;
+        } else {
+            if(mousePressed){
+                pressed = false;
+            }
         }
     }
 }
-
 
 class BoolInputFloat extends InputField{
     boolean value;
