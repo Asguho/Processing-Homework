@@ -48,8 +48,7 @@ class Ui{
         vindKompas.update(vindretning.getValue(), vindstyrke.getValue());
 
         skibKompas.draw();
-        vindKompas.draw();
-
+        vindKompas.draw();       
     }
 }
 
@@ -109,12 +108,17 @@ class TextInputFloat {
             stroke(255);
             if (mousePressed) {
                 println("pressed");
-                if (state == 1) {
-                    state = -1;
-                }
+                state *= -1;
+                delay(100);
             }
         }
         type();
+
+        if (mousePressed) {
+            if (!isHovering(x, y-15, int(x + 150 + textWidth(str(value))), y + 15)) {
+                state = 1;
+            }
+        }
     }
 
     void type() {
@@ -141,6 +145,10 @@ class TextInputFloat {
             }
         }
     }
+
+    void deselect() {
+        state = 1;
+    }
 }
 
 class Compass {
@@ -159,9 +167,7 @@ class Compass {
     }
 
     void draw() {
-        //draw an N at the top of the compass
         textSize(20);
-
         text("N", x - 5, y - size/2 - 5);
 
         circle(x, y, size);
