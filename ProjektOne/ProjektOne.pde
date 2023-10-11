@@ -1,7 +1,13 @@
+import processing.sound.*;
+SoundFile bg;
+
 Ship ship;
 Ui ui; 
 
 void setup() {
+    bg = new SoundFile(this, "battle.mp3");
+    bg.loop();
+
     size(900, 700);
     ship = new Ship(515,430);
     ui = new Ui();
