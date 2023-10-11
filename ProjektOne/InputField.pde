@@ -2,7 +2,7 @@ class InputField {
     String label;
     int x;
     int y;
-    boolean selected = false;
+    boolean pressed = false;
     boolean mousePressedLastFrame = false;
     boolean keyPressedLastFrame = false;
     int margin = 20;
@@ -24,9 +24,9 @@ class InputField {
     void drawLabelAndValue(String value){
         textSize(20);
         noStroke();
-        if (selected == false) {
+        if (pressed == false) {
             fill(255);
-        } else if (selected == true) {
+        } else if (pressed == true) {
             fill(255,0,0);
         }
         text(label + " " + value, x, y);    
@@ -36,20 +36,20 @@ class InputField {
         return int(textWidth(label+" "+value));
     }
 
-    void checkSelected(String value){
+    void checkpressed(String value){
         if (isHovering(x-margin, y-margin, x + getWidth(value)+margin, y+margin/2)) {
             stroke(255,0,0);
             strokeWeight(5);
             noFill();
             rect(x - margin, y - margin, getWidth(value) + margin*2, margin*1.5);
             if (mousePressed && (mousePressedLastFrame != mousePressed)) {
-                selected = !selected;
+                pressed = !pressed;
             }
             mousePressedLastFrame = mousePressed;
         }
 
         if (mousePressed && (mousePressedLastFrame != mousePressed) && isHovering(x-margin, y-margin, x + getWidth(value)+margin, y+margin/2) == false) {
-            selected = false;
+            pressed = false;
         }
     }
 }
@@ -69,19 +69,14 @@ class BoolInputFloat extends InputField{
 
     void draw() {
         drawLabelAndValue(str(value));
-        checkSelected(str(value));
-        type();
+        checkpressed(str(value));
+        checkInput();
     }
 
-    void type() {
-        if (selected == false) return;
-        if (keyPressed) {
-            if(keyPressed == keyPressedLastFrame) return;
-            if(key == ENTER || key == ' ') {
-                selected = false;
-                return;
-            }
+    void checkInput() {
+        if(pressed == true) {
             value = !value;
+            pressed = false;
         }
     }
 }
@@ -100,17 +95,17 @@ class TextInputFloat extends InputField {
     
     void draw() {
         drawLabelAndValue(str(value));
-        checkSelected(str(value));
-        type();
+        checkpressed(str(value));
+        checkInput();
     }
 
-    void type() {
-        if (selected == false) return;
+    void checkInput() {
+        if (pressed == false) return;
         if (keyPressed) {
             println(key);
             delay(100);
             if(key == ENTER) {
-                selected = false;
+                pressed = false;
                 return;
             }
             if (key == BACKSPACE) {
