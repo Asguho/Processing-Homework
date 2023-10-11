@@ -36,7 +36,6 @@ class Ui{
         text("Skibets egenskaber", 20, 30);
 
         vink.draw();
-
         hast.draw();
 
         textSize(30);

@@ -102,22 +102,23 @@ class TextInputFloat extends InputField {
     void checkInput() {
         if (pressed == false) return;
         if (keyPressed) {
-            println(key);
-            delay(100);
-            if(key == ENTER) {
-                pressed = false;
-                return;
+            if(keyPressed != keyPressedLastFrame) {
+                if(key == ENTER) {
+                    pressed = false;
+                    return;
+                }
+                if (key == BACKSPACE) {
+                    value = 0;
+                }
+                if (key == '-') {
+                    value = -value;
+                }
+                if (key >= '0' && key <= '9') {
+                    //add the number to the value
+                    value = value * 10 + (key - '0');
+                }
             }
-            if (key == BACKSPACE) {
-                value = 0;
-            }
-            if (key == '-') {
-                value = -value;
-            }
-            if (key >= '0' && key <= '9') {
-                //add the number to the value
-                value = value * 10 + (key - '0');
-            }
+            keyPressed = keyPressedLastFrame;
         }
     }
 }
