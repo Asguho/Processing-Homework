@@ -5,6 +5,7 @@ class Ui{
     TextInputFloat hast = new TextInputFloat("Skib Hast", 20, 90, 0);
     TextInputFloat vindretning = new TextInputFloat("Vindretning", 20, 170, 0);
     TextInputFloat vindstyrke = new TextInputFloat("Vindstyrke", 20, 200, 0);
+    Button startButton = new Button("Start", 20, 250, 100, 50, "start");
 
     Compass skibKompas = new Compass(175, 300, 75);
     Compass vindKompas = new Compass(75, 300, 75);
@@ -49,7 +50,11 @@ class Ui{
         vindKompas.update(polarToVektor(vindretning.getValue(), vindstyrke.getValue()*metersPrPixel));
 
         skibKompas.draw();
-        vindKompas.draw();       
+        vindKompas.draw();
+
+
+        startButton.draw();
+
     }
 }
 
@@ -59,6 +64,34 @@ boolean isHovering(int x1,int y1,int x2,int y2) {
     } else {
         return false;
     }   
+}
+class Button {
+    String label;
+    int x;
+    int y;
+    int w;
+    int h;
+    String onButtonPressMessage;
+    Button(String label, int x, int y, int w, int h, String onButtonPressMessage) {
+        this.label = label;
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.onButtonPressMessage = onButtonPressMessage;
+    }
+    void draw(){
+        textSize(20);
+        noStroke();
+        fill(255);
+        text(label, x, y);
+
+        noFill();
+        strokeWeight(5);
+        stroke(255,0,0);
+        rect(x,y,x+w, y+h);
+    }
+    // onButtonPress(onButtonPressMessage);
 }
 
 class TextInputFloat {
@@ -109,17 +142,12 @@ class TextInputFloat {
             stroke(255);
             if (mousePressed) {
                 println("pressed");
-                state *= -1;
-                delay(100);
+                if (state == 1) {
+                    state = -1;
+                }
             }
         }
         type();
-
-        if (mousePressed) {
-            if (!isHovering(x, y-15, int(x + 150 + textWidth(str(value))), y + 15)) {
-                state = 1;
-            }
-        }
     }
 
     void type() {
@@ -146,10 +174,6 @@ class TextInputFloat {
             }
         }
     }
-
-    void deselect() {
-        state = 1;
-    }
 }
 
 class Compass {
@@ -165,7 +189,9 @@ class Compass {
     }
 
     void draw() {
+        //draw an N at the top of the compass
         textSize(20);
+
         text("N", x - 5, y - size/2 - 5);
         circle(x, y, size);
         line(x, y, x + vektor.x, y + vektor.y);
