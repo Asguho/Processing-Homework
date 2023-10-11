@@ -1,6 +1,7 @@
 class Ui{
     final float metersPrPixel = 200.0/108.0;
-    TextInputFloat vink = new TextInputFloat("Skib Vinkel", 20, 60, 0);
+    final float metersPrKnob = 0.514;
+    TextInputFloat vink = new TextInputFloat("Skib kurs", 20, 60, 0);
     TextInputFloat hast = new TextInputFloat("Skib Hast", 20, 90, 0);
     TextInputFloat vindretning = new TextInputFloat("Vindretning", 20, 170, 0);
     TextInputFloat vindstyrke = new TextInputFloat("Vindstyrke", 20, 200, 0);
@@ -41,8 +42,8 @@ class Ui{
 
         vindstyrke.draw();
 
-        skib = polarToVektor(vink.getValue()*metersPrPixel, hast.getValue());
-        vind = polarToVektor(vindretning.getValue()*metersPrPixel, vindstyrke.getValue());
+        skib = polarToVektor(kursTilVinkel(vink.getValue()), hast.getValue()*metersPrKnob*metersPrPixel);
+        vind = polarToVektor(vindretning.getValue(), vindstyrke.getValue()*metersPrPixel);
 
         skibKompas.update(vink.getValue(), hast.getValue());
         vindKompas.update(vindretning.getValue(), vindstyrke.getValue());
