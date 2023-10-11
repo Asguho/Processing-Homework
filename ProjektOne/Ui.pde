@@ -52,6 +52,7 @@ class Ui{
 
     void drawCompass(PVector vektor, int x, int y){
         textSize(20);
+        fill(255);
         text("N", x - 5, y - 32.5);
         noFill();
         stroke(255);
