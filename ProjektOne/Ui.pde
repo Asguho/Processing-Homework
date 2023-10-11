@@ -6,8 +6,8 @@ class Ui{
     TextInputFloat vindretning = new TextInputFloat("Vindretning", 20, 170, 0);
     TextInputFloat vindstyrke = new TextInputFloat("Vindstyrke", 20, 200, 0);
 
-    Compass skibKompas = new Compass(0, 0, 175, 300, 75);
-    Compass vindKompas = new Compass(0, 0, 75, 300, 75);
+    Compass skibKompas = new Compass(175, 300, 75);
+    Compass vindKompas = new Compass(75, 300, 75);
 
     PVector skib = new PVector(0,0);
     PVector vind = new PVector(0,0);
@@ -45,8 +45,8 @@ class Ui{
         skib = polarToVektor(kursTilVinkel(vink.getValue()), hast.getValue()*metersPrKnob*metersPrPixel);
         vind = polarToVektor(vindretning.getValue(), vindstyrke.getValue()*metersPrPixel);
 
-        skibKompas.update(vink.getValue(), hast.getValue());
-        vindKompas.update(vindretning.getValue(), vindstyrke.getValue());
+        skibKompas.update(polarToVektor(kursTilVinkel(vink.getValue()), hast.getValue()*metersPrKnob*metersPrPixel));
+        vindKompas.update(polarToVektor(vindretning.getValue(), vindstyrke.getValue()*metersPrPixel));
 
         skibKompas.draw();
         vindKompas.draw();       
@@ -153,15 +153,12 @@ class TextInputFloat {
 }
 
 class Compass {
-    float angle;
-    float magnitude;
+    PVector vektor = new PVector(0,0);
     float x;
     float y;
     float size;
 
-    Compass(float mangle, float mmagnitude, float mx, float my, float msize) {
-        angle = mangle;
-        magnitude = mmagnitude;
+    Compass(float mx, float my, float msize) {
         x = mx;
         y = my;
         size = msize;
@@ -170,22 +167,11 @@ class Compass {
     void draw() {
         textSize(20);
         text("N", x - 5, y - size/2 - 5);
-
         circle(x, y, size);
-        PVector Vektor = new PVector(cos(angle)*magnitude, sin(angle)*magnitude);
-        if (Vektor.mag() > size/2) { // siker at vektoren ikke er længere end cirklen
-            Vektor.setMag(size/2);
-        }
-
-        if (magnitude < 5) { // gør at vektoren ikke er for lille til at se
-            magnitude = 5;
-        }
-
-        line(x, y, x + Vektor.x, y + Vektor.y);
+        line(x, y, x + vektor.x, y + vektor.y);
     }
 
-    void update(float mangle, float mmagnitude) {
-        angle = mangle;
-        magnitude = mmagnitude;
+    void update(PVector mvektor) {
+        vektor = mvektor;
     }
 }
