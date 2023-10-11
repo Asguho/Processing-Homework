@@ -5,7 +5,8 @@ class Ui{
     TextInputFloat hast = new TextInputFloat("Skib Hast", 20, 90, 0);
     TextInputFloat vindretning = new TextInputFloat("Vindretning", 20, 170, 0);
     TextInputFloat vindstyrke = new TextInputFloat("Vindstyrke", 20, 200, 0);
-    Button startButton = new Button("Start", 20, 250, 100, 50, "start");
+
+    BoolInputFloat startButton = new BoolInputFloat("Start", 20, 650, false);
 
     Compass skibKompas = new Compass(175, 300, 75);
     Compass vindKompas = new Compass(75, 300, 75);
@@ -65,33 +66,77 @@ boolean isHovering(int x1,int y1,int x2,int y2) {
         return false;
     }   
 }
-class Button {
+
+class BoolInputFloat {
     String label;
     int x;
     int y;
-    int w;
-    int h;
-    String onButtonPressMessage;
-    Button(String label, int x, int y, int w, int h, String onButtonPressMessage) {
-        this.label = label;
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.h = h;
-        this.onButtonPressMessage = onButtonPressMessage;
+    boolean value;
+    int state;
+
+    BoolInputFloat(
+        String mlabel,
+        int mx,
+        int my,
+        boolean mvalue
+    ) {
+        label = mlabel;
+        x = mx;
+        y = my;
+        value = mvalue;
+        state = 1;
     }
-    void draw(){
+
+    boolean getValue() {
+        return value;
+    }
+
+    void draw() {
         textSize(20);
         noStroke();
-        fill(255);
-        text(label, x, y);
 
-        noFill();
+        text(label, x, y);
+        if (state == 1) {
+            fill(255);
+        } else if (state == -1) {
+            fill(255,0,0);
+        }
+        text(str(value), x + 100, y);
+
+        fill(255);
+        stroke(255);
         strokeWeight(5);
-        stroke(255,0,0);
-        rect(x,y,x+w, y+h);
+        noFill();
+
+        if (isHovering(x, y-15, int(x + 150 + textWidth(str(value))), y + 15)) {
+            //make a red box around the text and the label
+            stroke(255,0,0);
+            rect(x -20, y - 20, int(200 + textWidth(str(value))), 30);
+            stroke(255);
+            if (mousePressed) {
+                println("pressed");
+                if (state == 1) {
+                    state = -1;
+                }
+            }
+        }
+        type();
     }
-    // onButtonPress(onButtonPressMessage);
+
+    void type() {
+        if (state == 1) return;
+        // switch the value if enter or space is pressed
+        if (keyPressed) {
+            println(key);
+            delay(100);
+
+            if(key == ENTER || key == ' ') {
+                state = 1;
+                value = !value;
+                return;
+            }
+        }
+    }
 }
 
 class TextInputFloat {
