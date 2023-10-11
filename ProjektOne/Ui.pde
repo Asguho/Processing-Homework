@@ -25,7 +25,7 @@ class Ui{
 
     void display() {
         ship = polarToVektor(kursTilVinkel(shipKursInput.getValue()), shipKnobInput.getValue()*metersPrKnob*metersPrPixel);
-        wind = polarToVektor(windAngInput.getValue(), windLenInput.getValue()*metersPrPixel);
+        wind = polarToVektor(kursTilVinkel(windAngInput.getValue()), windLenInput.getValue()*metersPrPixel);
 
         image(img, width-height*img.width/img.height, 0, height*img.width/img.height, height);
 
@@ -35,10 +35,10 @@ class Ui{
 
         drawHeadline("Vindens egenskaber", 20, 140);
         windAngInput.draw();
-        shipKnobInput.draw();
+        windLenInput.draw();
 
-        drawCompass(ship, 175, 300);
-        drawCompass(wind, 75, 300);
+        drawCompass(kursTilVinkel(shipKursInput.getValue()), 175, 300);
+        drawCompass(kursTilVinkel(windAngInput.getValue()), 75, 300);
 
         startButton.draw();
     }
@@ -50,7 +50,7 @@ class Ui{
         text(text, x, y);
     }
 
-    void drawCompass(PVector vektor, int x, int y){
+    void drawCompass(float angle, int x, int y){
         textSize(20);
         fill(255);
         text("N", x - 5, y - 32.5);
@@ -58,6 +58,7 @@ class Ui{
         stroke(255);
         strokeWeight(2);
         circle(x, y, 75);
-        line(x, y, x + vektor.x, y + vektor.y);
+        PVector v = PVector.fromAngle(radians(angle)).setMag(30);
+        line(x, y, x + v.x, y + v.y);
     }
 }
