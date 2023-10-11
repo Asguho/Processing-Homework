@@ -17,3 +17,12 @@ void draw() {
     ui.display();
     ship.display();
 }
+
+void onButtonPress(String message){
+    if(message == "reset"){
+        ship = new Ship(515,430);
+    }
+    // if(message == "start"){
+    //     ship.start();
+    // }
+}
