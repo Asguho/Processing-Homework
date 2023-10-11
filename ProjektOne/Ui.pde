@@ -31,6 +31,8 @@ class Ui{
     void display() {
         image(img, width-height*img.width/img.height, 0, height*img.width/img.height, height);
         textSize(30);
+        fill(255);
+        noStroke();
         text("Skibets egenskaber", 20, 30);
 
         vink.draw();
@@ -38,6 +40,8 @@ class Ui{
         hast.draw();
 
         textSize(30);
+        fill(255);
+        noStroke();
         text("Vind egenskaber", 20, 140);
 
         vindretning.draw();
@@ -59,167 +63,8 @@ class Ui{
     }
 }
 
-boolean isHovering(int x1,int y1,int x2,int y2) {
-    if (mouseX > x1 && mouseX < x2 && mouseY > y1 && mouseY < y2) {
-        return true;
-    } else {
-        return false;
-    }   
-}
 
-class BoolInputFloat {
-    String label;
-    int x;
-    int y;
-    boolean value;
-    int state;
 
-    BoolInputFloat(
-        String mlabel,
-        int mx,
-        int my,
-        boolean mvalue
-    ) {
-        label = mlabel;
-        x = mx;
-        y = my;
-        value = mvalue;
-        state = 1;
-    }
-
-    boolean getValue() {
-        return value;
-    }
-
-    void draw() {
-        textSize(20);
-        noStroke();
-
-        text(label, x, y);
-        if (state == 1) {
-            fill(255);
-        } else if (state == -1) {
-            fill(255,0,0);
-        }
-        text(str(value), x + 100, y);
-
-        fill(255);
-        stroke(255);
-        strokeWeight(5);
-        noFill();
-
-        if (isHovering(x, y-15, int(x + 150 + textWidth(str(value))), y + 15)) {
-            //make a red box around the text and the label
-            stroke(255,0,0);
-            rect(x -20, y - 20, int(200 + textWidth(str(value))), 30);
-            stroke(255);
-            if (mousePressed) {
-                println("pressed");
-                if (state == 1) {
-                    state = -1;
-                }
-            }
-        }
-        type();
-    }
-
-    void type() {
-        if (state == 1) return;
-        // switch the value if enter or space is pressed
-        if (keyPressed) {
-            println(key);
-            delay(100);
-
-            if(key == ENTER || key == ' ') {
-                state = 1;
-                value = !value;
-                return;
-            }
-        }
-    }
-}
-
-class TextInputFloat {
-    String label;
-    int x;
-    int y;
-    float value;
-    int state;
-
-    TextInputFloat(
-        String mlabel,
-        int mx,
-        int my,
-        float mvalue
-    ) {
-        label = mlabel;
-        x = mx;
-        y = my;
-        value = mvalue;
-        state = 1;
-    }
-
-    float getValue() {
-        return value;
-    }
-    
-    void draw() {
-        textSize(20);
-        noStroke();
-
-        text(label, x, y);
-        if (state == 1) {
-            fill(255);
-        } else if (state == -1) {
-            fill(255,0,0);
-        }
-        text(value, x + 100, y);
-
-        fill(255);
-        stroke(255);
-        strokeWeight(5);
-        noFill();
-
-        if (isHovering(x, y-15, int(x + 150 + textWidth(str(value))), y + 15)) {
-            //make a red box around the text and the label
-            stroke(255,0,0);
-            rect(x -20, y - 20, int(200 + textWidth(str(value))), 30);
-            stroke(255);
-            if (mousePressed) {
-                println("pressed");
-                if (state == 1) {
-                    state = -1;
-                }
-            }
-        }
-        type();
-    }
-
-    void type() {
-        if (state == 1) return;
-        //get the number pressed and update the value
-        if (keyPressed) {
-            
-            println(key);
-            delay(100);
-
-            if(key == ENTER) {
-                state = 1;
-                return;
-            }
-            if (key == BACKSPACE) {
-                value = 0;
-            }
-            if (key == '-') {
-                value = -value;
-            }
-            if (key >= '0' && key <= '9') {
-                //add the number to the value
-                value = value * 10 + (key - '0');
-            }
-        }
-    }
-}
 
 class Compass {
     PVector vektor = new PVector(0,0);
@@ -234,10 +79,11 @@ class Compass {
     }
 
     void draw() {
-        //draw an N at the top of the compass
         textSize(20);
-
         text("N", x - 5, y - size/2 - 5);
+        noFill();
+        stroke(255);
+        strokeWeight(2);
         circle(x, y, size);
         line(x, y, x + vektor.x, y + vektor.y);
     }
