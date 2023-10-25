@@ -7,6 +7,7 @@ class Ui{
     TextInputFloat vindstyrke = new TextInputFloat("Vindstyrke", 20, 200, 0);
 
     BoolInputFloat startButton = new BoolInputFloat("Start", 20, 650, false);
+    BoolInputFloat resetButton = new BoolInputFloat("Reset", 20, 680, false);
 
     Compass skibKompas = new Compass(175, 300, 75);
     Compass vindKompas = new Compass(75, 300, 75);
@@ -26,6 +27,15 @@ class Ui{
             return vind;
         }
         return new PVector(0,0);
+    }
+
+    boolean getState(String name){
+        if(name == "start"){
+            return startButton.getValue();
+        } else if(name == "reset"){
+            return resetButton.getValue();
+        }
+        return false;
     }
 
     void display() {
@@ -59,7 +69,15 @@ class Ui{
 
 
         startButton.draw();
+        resetButton.draw();
 
+    }
+
+    void resetProperties(){
+        vink.reset();
+        hast.reset();
+        vindretning.reset();
+        vindstyrke.reset();
     }
 }
 

@@ -5,8 +5,9 @@ Ship ship;
 Ui ui; 
 
 void setup() {
-    bg = new SoundFile(this, "battle.mp3");
-    bg.loop();
+    //bg = new SoundFile(this, "battle.mp3");
+    //bg.loop();
+    frameRate(60);
 
     size(900, 700);
     ship = new Ship(515,430);
@@ -18,17 +19,15 @@ void draw() {
     ship.setVel(ui.getValue("skib"));
     ship.setWind(ui.getValue("vind"));
 
-    ship.update();
+    if(ui.getState("start")){
+        ship.update();
+    }
+
+    if(ui.getState("reset")){
+        ship = new Ship(515,430);
+        ui.resetProperties();
+    }
 
     ui.display();
     ship.display();
-}
-
-void onButtonPress(String message){
-    if(message == "reset"){
-        ship = new Ship(515,430);
-    }
-    // if(message == "start"){
-    //     ship.start();
-    // }
 }

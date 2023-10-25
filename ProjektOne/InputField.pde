@@ -65,7 +65,7 @@ class BoolInputFloat extends InputField{
 
     boolean getValue() {
         return value;
-    }    
+    }
 
     void draw() {
         drawLabelAndValue(str(value));
@@ -91,6 +91,10 @@ class TextInputFloat extends InputField {
 
     float getValue() {
         return value;
+    }
+
+    void reset() {
+        value = 0;
     }
     
     void draw() {
