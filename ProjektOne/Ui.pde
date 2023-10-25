@@ -11,9 +11,8 @@ class Ui{
     Compass skibKompas = new Compass(175, 300, 75);
     Compass vindKompas = new Compass(75, 300, 75);
 
-    PVector skib = new PVector(0,0);
-    PVector vind = new PVector(0,0);
-    
+    PVector ship = new PVector(0,0);
+    PVector wind = new PVector(0,0);
     PImage img;
 
     Ui(){
@@ -52,31 +51,8 @@ class Ui{
         windKursInput.draw();
         windLenInput.draw();
 
-        drawCompass(kursTilVinkel(shipKursInput.getValue()), 175, 300);
-        drawCompass(kursTilVinkel(windKursInput.getValue()), 75, 300);
-
-        startButton.draw();
-    }
-
-    void drawHeadline(String text, float x, float y){
-        textSize(30);
-        fill(255);
-        noStroke();
-        text("Vind egenskaber", 20, 140);
-
-        vindretning.draw();
-
-        vindstyrke.draw();
-
-        skib = polarToVektor(kursTilVinkel(vink.getValue()), hast.getValue()*metersPrKnob*metersPrPixel);
-        vind = polarToVektor(vindretning.getValue(), vindstyrke.getValue()*metersPrPixel);
-
-        skibKompas.update(polarToVektor(kursTilVinkel(vink.getValue()), hast.getValue()*metersPrKnob*metersPrPixel));
-        vindKompas.update(polarToVektor(vindretning.getValue(), vindstyrke.getValue()*metersPrPixel));
-
-        skibKompas.draw();
-        vindKompas.draw();
-
+        skibKompas.drawCompass(kursTilVinkel(shipKursInput.getValue()), 175, 300);
+        vindKompas.drawCompass(kursTilVinkel(windKursInput.getValue()), 75, 300);
 
         startButton.draw();
         resetButton.draw();
@@ -84,13 +60,19 @@ class Ui{
     }
 
     void resetProperties(){
-        vink.reset();
-        hast.reset();
-        vindretning.reset();
-        vindstyrke.reset();
+        shipKursInput.reset();
+        shipKnobInput.reset();
+        windKursInput.reset();
+        windLenInput.reset();
     }
 }
 
+void drawHeadline(String text, float x, float y){
+    textSize(30);
+    fill(255);
+    noStroke();
+    text(text, x, y);
+}
 
 
 
@@ -106,7 +88,7 @@ class Compass {
         size = msize;
     }
 
-    void draw() {
+    void drawCompass(float angle, int x, int y){
         textSize(20);
         fill(255);
         text("N", x - 5, y - 32.5);
