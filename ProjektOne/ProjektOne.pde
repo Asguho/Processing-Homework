@@ -16,8 +16,8 @@ void setup() {
 
 void draw() {
     background(0);
-    ship.setVel(ui.getValue("skib"));
-    ship.setWind(ui.getValue("vind"));
+    ship.setVel(ui.getValue("ship"));
+    ship.setWind(ui.getValue("wind"));
 
     if(ui.getState("start")){
         ship.update();

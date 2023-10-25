@@ -1,11 +1,10 @@
 class Ui{
     final float metersPrPixel = 200.0/108.0;
     final float metersPrKnob = 0.514;
-    TextInputFloat vink = new TextInputFloat("Skib kurs", 20, 60, 0);
-    TextInputFloat hast = new TextInputFloat("Skib Hast", 20, 90, 0);
-    TextInputFloat vindretning = new TextInputFloat("Vindretning", 20, 170, 0);
-    TextInputFloat vindstyrke = new TextInputFloat("Vindstyrke", 20, 200, 0);
-
+    TextInputFloat shipKursInput = new TextInputFloat("Skib kurs", 20, 60, 0);
+    TextInputFloat shipKnobInput = new TextInputFloat("Skib Hast", 20, 90, 0);
+    TextInputFloat windKursInput = new TextInputFloat("Vindretning", 20, 170, 0);
+    TextInputFloat windLenInput = new TextInputFloat("Vindstyrke", 20, 200, 0);
     BoolInputFloat startButton = new BoolInputFloat("Start", 20, 650, false);
     BoolInputFloat resetButton = new BoolInputFloat("Reset", 20, 680, false);
 
@@ -16,15 +15,16 @@ class Ui{
     PVector vind = new PVector(0,0);
     
     PImage img;
+
     Ui(){
         img = loadImage("assets/background.png");
     }
 
     PVector getValue(String name){
-        if(name == "skib"){
-            return skib;
-        }else if(name == "vind"){
-            return vind;
+        if(name == "ship"){
+            return ship;
+        }else if(name == "wind"){
+            return wind;
         }
         return new PVector(0,0);
     }
@@ -39,16 +39,26 @@ class Ui{
     }
 
     void display() {
+        ship = polarToVektor(kursTilVinkel(shipKursInput.getValue()), shipKnobInput.getValue()*metersPrKnob*metersPrPixel);
+        wind = polarToVektor(kursTilVinkel(windKursInput.getValue()), windLenInput.getValue()*metersPrPixel);
+
         image(img, width-height*img.width/img.height, 0, height*img.width/img.height, height);
-        textSize(30);
-        fill(255);
-        noStroke();
-        text("Skibets egenskaber", 20, 30);
 
-        vink.draw();
+        drawHeadline("Skibets egenskaber", 20, 30);
+        shipKursInput.draw();
+        shipKnobInput.draw();
 
-        hast.draw();
+        drawHeadline("Vindens egenskaber", 20, 140);
+        windKursInput.draw();
+        windLenInput.draw();
 
+        drawCompass(kursTilVinkel(shipKursInput.getValue()), 175, 300);
+        drawCompass(kursTilVinkel(windKursInput.getValue()), 75, 300);
+
+        startButton.draw();
+    }
+
+    void drawHeadline(String text, float x, float y){
         textSize(30);
         fill(255);
         noStroke();
@@ -98,15 +108,13 @@ class Compass {
 
     void draw() {
         textSize(20);
-        text("N", x - 5, y - size/2 - 5);
+        fill(255);
+        text("N", x - 5, y - 32.5);
         noFill();
         stroke(255);
         strokeWeight(2);
-        circle(x, y, size);
-        line(x, y, x + vektor.x, y + vektor.y);
-    }
-
-    void update(PVector mvektor) {
-        vektor = mvektor;
+        circle(x, y, 75);
+        PVector v = polarToVektor(angle, 30);
+        line(x, y, x + v.x, y + v.y);
     }
 }
