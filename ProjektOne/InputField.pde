@@ -2,16 +2,18 @@ class InputField {
     String label;
     int x;
     int y;
+    String unit;
     boolean pressed = false;
     boolean mousePressedLastFrame = false;
     boolean keyPressedLastFrame = false;
     boolean showValue = true;
     int margin = 20;
 
-    InputField(String _label, int _x, int _y, boolean _showValue) {
+    InputField(String _label, int _x, int _y, String _unit, boolean _showValue){
         label = _label;
         x = _x;
         y = _y;
+        unit = _unit;
         showValue = _showValue;
     }
 
@@ -31,11 +33,11 @@ class InputField {
         } else if (pressed == true) {
             fill(255,0,0);
         }
-        text(label + " " + (showValue ? value : " "), x, y);    
+        text(label + " " + (showValue ? value : "") + " " + unit, x, y);    
     }
 
     int getWidth(String value) {
-        return int(textWidth(label+" "+(showValue ? value : "")));
+        return int(textWidth(label + " " + (showValue ? value : "") + " " + unit));
     }
 
     void checkpressed(String value){
@@ -59,8 +61,8 @@ class InputField {
 class BoolInputFloat extends InputField{
     boolean value;
 
-    BoolInputFloat(String _label, int _x, int _y, boolean _value, boolean _showValue) {
-        super(_label, _x, _y, _showValue);
+    BoolInputFloat(String _label, int _x, int _y, boolean _value, String _unit, boolean _showValue) {
+        super(_label, _x, _y, _unit, _showValue);
         value = _value;
     }
 
@@ -89,8 +91,8 @@ class BoolInputFloat extends InputField{
 class TextInputFloat extends InputField {
     float value;
 
-    TextInputFloat(String _label, int _x, int _y, float _value, boolean _showValue) {
-        super(_label, _x, _y, _showValue);
+    TextInputFloat(String _label, int _x, int _y, float _value, String _unit, boolean _showValue) {
+        super(_label, _x, _y, _unit, _showValue);
         value = _value;
     }
 
