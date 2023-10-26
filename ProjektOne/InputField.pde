@@ -2,15 +2,17 @@ class InputField {
     String label;
     int x;
     int y;
+    String unit;
     boolean pressed = false;
     boolean mousePressedLastFrame = false;
     boolean keyPressedLastFrame = false;
     int margin = 20;
 
-    InputField(String _label, int _x, int _y){
+    InputField(String _label, int _x, int _y, String _unit){
         label = _label;
         x = _x;
         y = _y;
+        unit = _unit;
     }
 
     boolean isHovering(int x1,int y1,int x2,int y2) {
@@ -29,11 +31,11 @@ class InputField {
         } else if (pressed == true) {
             fill(255,0,0);
         }
-        text(label + " " + value, x, y);    
+        text(label + " " + value + " " + unit, x, y);    
     }
 
     int getWidth(String value) {
-        return int(textWidth(label+" "+value));
+        return int(textWidth(label + " " + value + " " + unit));
     }
 
     void checkpressed(String value){
@@ -57,8 +59,8 @@ class InputField {
 class BoolInputFloat extends InputField{
     boolean value;
 
-    BoolInputFloat(String _label, int _x, int _y, boolean _value) {
-        super(_label, _x, _y);
+    BoolInputFloat(String _label, int _x, int _y, boolean _value, String _unit) {
+        super(_label, _x, _y, _unit);
         value = _value;
     }
 
@@ -83,8 +85,8 @@ class BoolInputFloat extends InputField{
 class TextInputFloat extends InputField {
     float value;
 
-    TextInputFloat(String _label, int _x, int _y, float _value) {
-        super(_label, _x, _y);
+    TextInputFloat(String _label, int _x, int _y, float _value, String _unit) {
+        super(_label, _x, _y, _unit);
         value = _value;
     }
 
