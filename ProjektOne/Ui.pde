@@ -8,8 +8,6 @@ class Ui{
     BoolInputFloat startButton = new BoolInputFloat("Start", 20, 650, false, true);
     BoolInputFloat resetButton = new BoolInputFloat("Reset", 20, 680, false, false);
 
-    Compass skibKompas = new Compass(175, 300, 75);
-    Compass vindKompas = new Compass(75, 300, 75);
 
     PVector ship = new PVector(0,0);
     PVector wind = new PVector(0,0);
@@ -51,8 +49,8 @@ class Ui{
         windKursInput.draw();
         windLenInput.draw();
 
-        skibKompas.drawCompass(kursTilVinkel(shipKursInput.getValue()), 175, 300);
-        vindKompas.drawCompass(kursTilVinkel(windKursInput.getValue()), 75, 300);
+        drawCompass(kursTilVinkel(shipKursInput.getValue()), 175, 300);
+        drawCompass(kursTilVinkel(windKursInput.getValue()), 75, 300);
 
         startButton.draw();
         resetButton.draw();
@@ -74,29 +72,15 @@ void drawHeadline(String text, float x, float y){
     text(text, x, y);
 }
 
-
-
-class Compass {
-    PVector vektor = new PVector(0,0);
-    float x;
-    float y;
-    float size;
-
-    Compass(float mx, float my, float msize) {
-        x = mx;
-        y = my;
-        size = msize;
-    }
-
-    void drawCompass(float angle, int x, int y){
-        textSize(20);
-        fill(255);
-        text("N", x - 5, y - 32.5);
-        noFill();
-        stroke(255);
-        strokeWeight(2);
-        circle(x, y, 75);
-        PVector v = polarToVektor(angle, 30);
-        line(x, y, x + v.x, y + v.y);
-    }
+void drawCompass(float angle, int x, int y){
+    textSize(20);
+    fill(255);
+    text("N", x - 5, y - 40);
+    noFill();
+    stroke(255);
+    strokeWeight(2);
+    circle(x, y, 75);
+    PVector v = polarToVektor(angle, 30);
+    line(x, y, x + v.x, y + v.y);
 }
+
