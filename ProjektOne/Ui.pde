@@ -1,12 +1,12 @@
 class Ui{
     final float metersPrPixel = 200.0/108.0;
     final float metersPrKnob = 0.514;
-    TextInputFloat shipKursInput = new TextInputFloat("Skib kurs", 20, 60, 0);
-    TextInputFloat shipKnobInput = new TextInputFloat("Skib Hast", 20, 90, 0);
-    TextInputFloat windKursInput = new TextInputFloat("Vindretning", 20, 170, 0);
-    TextInputFloat windLenInput = new TextInputFloat("Vindstyrke", 20, 200, 0);
-    BoolInputFloat startButton = new BoolInputFloat("Start", 20, 650, false);
-    BoolInputFloat resetButton = new BoolInputFloat("Reset", 20, 680, false);
+    TextInputFloat shipKursInput = new TextInputFloat("Skib kurs", 20, 60, 0, true);
+    TextInputFloat shipKnobInput = new TextInputFloat("Skib Hast", 20, 90, 0, true);
+    TextInputFloat windKursInput = new TextInputFloat("Vindretning", 20, 170, 0, true);
+    TextInputFloat windLenInput = new TextInputFloat("Vindstyrke", 20, 200, 0, true);
+    BoolInputFloat startButton = new BoolInputFloat("Start", 20, 650, false, true);
+    BoolInputFloat resetButton = new BoolInputFloat("Reset", 20, 680, false, false);
 
     Compass skibKompas = new Compass(175, 300, 75);
     Compass vindKompas = new Compass(75, 300, 75);
@@ -56,7 +56,6 @@ class Ui{
 
         startButton.draw();
         resetButton.draw();
-
     }
 
     void resetProperties(){
@@ -64,6 +63,7 @@ class Ui{
         shipKnobInput.reset();
         windKursInput.reset();
         windLenInput.reset();
+        resetButton.reset();
     }
 }
 
