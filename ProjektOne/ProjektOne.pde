@@ -5,8 +5,8 @@ Ship ship;
 Ui ui; 
 
 void setup() {
-    //bg = new SoundFile(this, "battle.mp3");
-    //bg.loop();
+    bg = new SoundFile(this, "battle.mp3");
+    bg.loop();
     frameRate(60);
 
     size(900, 700);
