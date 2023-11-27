@@ -5,8 +5,7 @@ Knap downKnap;
 Knap rightKnap;
 Knap leftKnap;
 
-Ship ship;
-Ship ship2;
+Ship[] ships = new Ship[20];
 
 void setup() {
     size(400, 400);
@@ -19,8 +18,9 @@ void setup() {
 
     img = loadImage("rocket.png");
     
-    ship = new Ship(200, 200);
-    ship2 = new Ship(100, 100);
+    for (int i = 0; i < ships.length; i++) {
+        ships[i] = new Ship(random(0, width), random(0, height));
+    }
 }
 
 void draw() {
@@ -33,10 +33,10 @@ void draw() {
     downKnap.mouseDown();
     rightKnap.mouseDown();
     leftKnap.mouseDown();
-    ship.draw();
-    ship2.draw();
-    ship.select();
-    ship2.select();
+    for (int i = 0; i < ships.length; i++) {
+        ships[i].draw();
+        ships[i].select();
+    }
 }
 
 void mouseReleased() {
@@ -47,23 +47,27 @@ void mouseReleased() {
 }
 
 void up() {
-    ship.move(0, -1);
-    ship2.move(0, -1);
+    for (int i = 0; i < ships.length; i++) {
+        ships[i].move(0, -1);
+    }
 }
 
 void down() {
-    ship.move(0, 1);
-    ship2.move(0, 1);
+    for (int i = 0; i < ships.length; i++) {
+        ships[i].move(0, 1);
+    }
 }
 
 void right() {
-    ship.move(1, 0);
-    ship2.move(1, 0);
+    for (int i = 0; i < ships.length; i++) {
+        ships[i].move(1, 0);
+    }
 }
 
 void left() {
-    ship.move(-1, 0);
-    ship2.move(-1, 0);
+    for (int i = 0; i < ships.length; i++) {
+        ships[i].move(-1, 0);
+    }
 }
 
 class Knap {
@@ -135,8 +139,9 @@ class Ship {
     void select() {
         if (mouseX > x && mouseX < x + 50 && mouseY > y && mouseY < y + 73 && mousePressed) {
             // Deselect the previously selected ship
-            ship.deselect();
-            ship2.deselect();
+            for (int i = 0; i < ships.length; i++) {
+                ships[i].deselect();
+            }
             
             // Select the current ship
             isSelected = true;
