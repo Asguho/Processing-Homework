@@ -24,6 +24,7 @@ class Stack<T> {
         return val;
     }
 }
+
 class Queue<T> {
     Node<T> head;
     Node<T> tail;
