@@ -1,0 +1,29 @@
+{
+  "erStudent": false,
+  "telefonnumre": [
+    {
+      "type": "hjem",
+      "nummer": "12345678"
+    },
+    {
+      "type": "mobil",
+      "nummer": "87654321"
+    },
+    {
+      "type": "arbejde",
+      "nummer": "87654321"
+    }
+  ],
+  "efternavn": "Hansen",
+  "adresse": {
+    "postnummer": 5000,
+    "by": "Odense",
+    "gade": "Bredgade 12"
+  },
+  "fornavn": "Lucas",
+  "fag": [
+    "Matematik",
+    "Fysik"
+  ],
+  "alder": 20
+}
